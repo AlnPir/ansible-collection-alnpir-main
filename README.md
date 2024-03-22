@@ -1,1 +1,3 @@
-# ansible-collection-alnpir-main
+# Ansible Collection - alnpir.main
+
+Documentation for the collection.
