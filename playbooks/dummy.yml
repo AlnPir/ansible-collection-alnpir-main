@@ -10,3 +10,13 @@
         name: alnpir.main.dummy
       vars:
         dummy_hi_from: role within playbook
+
+    - name: Run dummy module
+      alnpir.main.dummy:
+        name: "John Doe"
+        changed: true
+      register: dummy
+
+    - name: Print dummy
+      ansible.builtin.debug:
+        var: dummy
