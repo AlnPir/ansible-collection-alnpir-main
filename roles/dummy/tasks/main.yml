@@ -1,2 +1,4 @@
 ---
-# tasks file for dummy
+- name: Greet form call location
+  ansible.builtin.debug:
+    msg: "Hi from : {{ dummy_hi_from }} !"
