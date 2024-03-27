@@ -1,0 +1,7 @@
+---
+- name: Call dummy task from within this playbook
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Include the dummy task
+      ansible.builtin.import_tasks: tasks/dummy.yml
