@@ -1,0 +1,15 @@
+[project]
+name = "ansible-collection-alnpir-main"
+description = "Main collection of AlnPir"
+version = "1.0.0"
+authors = [{ name = "Alan PIERRE", email = "alan.pierre@proton.me" }]
+
+dependencies = [
+    "ansible",
+    "ansible-lint",
+    "invoke",
+    "molecule"
+    ]
+    
+[tool.setuptools]
+py-modules = []
