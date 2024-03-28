@@ -8,7 +8,7 @@ DOCUMENTATION = """
 module: dummy
 short_description: This is a dummy module
 version_added: "1.0.0"
-description: This module greet the user, with different return state. 
+description: This module greet the user, with different return state.
 options:
     name:
         description: This is the message to send to the dummy module.
@@ -58,7 +58,7 @@ message:
     sample: 'Hi John Doe !'
 """
 
-from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils.basic import AnsibleModule  # noqa: E402
 
 
 def run_module():

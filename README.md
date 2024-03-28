@@ -12,3 +12,15 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install -e .
 ```
+
+## Contribute
+
+First, run :
+
+```bash
+pip install -e .'[dev]'
+pre-commit install
+pre-commit run --all-files
+```
+
+Then, use `invoke lint` to lint and format the collection.

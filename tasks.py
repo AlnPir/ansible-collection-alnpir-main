@@ -6,7 +6,7 @@ def lint(c):
     """
     Lint the collection.
     """
-    c.run("ansible-lint --exclude .venv")
+    c.run("pre-commit run --all-files")
 
 
 @task()

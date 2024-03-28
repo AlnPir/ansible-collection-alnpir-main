@@ -10,6 +10,11 @@ dependencies = [
     "invoke",
     "molecule"
     ]
-    
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    ]
+
 [tool.setuptools]
 py-modules = []
