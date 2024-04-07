@@ -8,7 +8,6 @@ dependencies = [
     "ansible",
     "ansible-lint",
     "invoke",
-    "molecule"
     ]
 
 [project.optional-dependencies]

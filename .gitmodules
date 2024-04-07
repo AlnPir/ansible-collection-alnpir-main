@@ -1,3 +1,0 @@
-[submodule "roles/infrastructure"]
-	path = roles/infrastructure
-	url = git@github.com:AlnPir/ansible-role-infrastructure.git

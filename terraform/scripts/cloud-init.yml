@@ -1,0 +1,22 @@
+### Security ###
+debug: false
+disable_root: true
+ssh_pwauth: false
+ssh_deletekeys: true
+
+### User ###
+users:
+  - name: ansible
+    shell: /bin/bash
+    groups: users
+    ssh_import_id: None
+    lock_passwd: true
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ${sshkey}
+
+### Package ###
+package_update: true
+package_upgrade: true
+packages:
+  - python3

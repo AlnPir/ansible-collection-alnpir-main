@@ -1,0 +1,16 @@
+- name: Manage infrastructure
+  hosts: localhost
+  tasks:
+    - name: Basic deploy/destroy of a service
+      community.general.terraform:
+        project_path: "../terraform"
+        state: "{{ terraform_state }}"
+      register: result
+
+    - name: Print terraform result
+      ansible.builtin.debug:
+        msg: "{{result.stdout}}"
+
+  post_tasks:
+    - name: Refresh inventory
+      ansible.builtin.meta: refresh_inventory

@@ -10,16 +10,22 @@ def lint(c):
 
 
 @task()
-def dummy(c):
+def main(c):
     """
-    Play dummy playbook
+    Create infrastructure
     """
-    c.run("ansible-playbook ./playbooks/dummy.yml")
+    c.run(
+        "ansible-playbook ./playbooks/site.yml -e '@playbooks/vars/group_vars/all.yml'",
+        pty=True,
+    )
 
 
 @task()
-def molecule(c):
+def destroy(c):
     """
-    Run molecule test
+    Destroy infrastructure
     """
-    c.run("cd extensions && molecule test")
+    c.run(
+        "ansible-playbook ./playbooks/infrastructure.yml -e '@playbooks/vars/group_vars/all.yml' -e 'terraform_state=absent'",
+        pty=True,
+    )

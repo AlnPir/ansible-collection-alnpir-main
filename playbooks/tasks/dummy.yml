@@ -1,4 +1,0 @@
----
-- name: Print some text
-  ansible.builtin.debug:
-    msg: This is the dummy task !

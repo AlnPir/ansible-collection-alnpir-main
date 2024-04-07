@@ -1,0 +1,5 @@
+- name: Include a play after another play
+  ansible.builtin.import_playbook: infrastructure.yml
+
+- name: Include a play after another play
+  ansible.builtin.import_playbook: ping.yml
