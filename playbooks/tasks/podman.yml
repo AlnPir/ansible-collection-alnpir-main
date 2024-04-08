@@ -1,0 +1,33 @@
+- name: Change ownership of /opt
+  become: true
+  ansible.builtin.file:
+    path: /opt
+    state: directory
+    owner: ansible
+    mode: "0755"
+
+- name: Copy podman folder with owner and permissions
+  ansible.builtin.copy:
+    src: ./files/podman
+    dest: /opt
+    owner: ansible
+    mode: "0644"
+
+- name: Installing podman
+  become: true
+  ansible.builtin.package:
+    name: "podman"
+    state: present
+
+- name: Build a basic OCI image
+  containers.podman.podman_image:
+    name: custom-nginx
+    path: /opt/podman/nginx
+
+- name: Create an nginx container
+  containers.podman.podman_container:
+    name: custom-nginx
+    image: custom-nginx
+    state: started
+    ports:
+      - 8080:8080

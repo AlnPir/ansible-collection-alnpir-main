@@ -1,0 +1,12 @@
+- name: Configure instances
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Wait for system to become reachable
+      ansible.builtin.wait_for_connection:
+
+    - name: Gather facts for first time
+      ansible.builtin.setup:
+
+    - name: Podman example
+      ansible.builtin.import_tasks: ./tasks/podman.yml

@@ -21,12 +21,12 @@ def main(c):
 
 
 @task()
-def podman(c):
+def configure_instances(c):
     """
-    Podman
+    Configure instances
     """
     c.run(
-        "ansible-playbook ./playbooks/podman.yml -e '@playbooks/vars/group_vars/all.yml'",
+        "ansible-playbook ./playbooks/configure_instances.yml -e '@playbooks/vars/group_vars/all.yml'",
         pty=True,
     )
 
