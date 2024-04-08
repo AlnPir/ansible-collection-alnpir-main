@@ -1,1 +1,3 @@
-sshkey = "ssh-ed25519 XXXXXXXXXXXXXXXXX"
+sshkey = 
+exoscale_api_key =
+exoscale_api_secret = 

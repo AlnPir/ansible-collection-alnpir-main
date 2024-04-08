@@ -16,7 +16,5 @@ users:
       - ${sshkey}
 
 ### Package ###
-package_update: true
-package_upgrade: true
 packages:
   - python3

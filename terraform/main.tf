@@ -1,45 +1,23 @@
 terraform {
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
+    exoscale = {
+      source  = "exoscale/exoscale"
     }
     ansible = {
-      version = "~> 1.2.0"
       source  = "ansible/ansible"
     }
   }
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
+provider "exoscale" {
+  key    = var.exoscale_api_key
+  secret = var.exoscale_api_secret
 }
 
-
-# Create a Security Group for an EC2 instance 
-resource "aws_security_group" "test_instance" {
-  name = "terraform-test-instance"
-
-  ingress {
-    from_port   = var.server_port
-    to_port     = var.server_port
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+data "exoscale_template" "my_template" {
+  zone = "ch-gva-2"
+  name = "Linux Ubuntu 22.04 LTS 64-bit"
 }
-
 
 data "cloudinit_config" "cloud_init" {
   part {
@@ -51,20 +29,57 @@ data "cloudinit_config" "cloud_init" {
   }
 }
 
-resource "aws_instance" "server1" {
-  ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t3.micro"
-  vpc_security_group_ids = ["${aws_security_group.test_instance.id}"]
-  user_data              = data.cloudinit_config.cloud_init.rendered
+resource "exoscale_security_group" "common_security_group" {
+  name = "common-security-group"
+}
+
+resource "exoscale_security_group_rule" "ssh_ipv4" {
+  security_group_id = exoscale_security_group.common_security_group.id
+  description       = "SSH (IPv4)"
+  type              = "INGRESS"
+  protocol          = "TCP"
+  start_port        = 22
+  end_port          = 22
+  cidr              = "0.0.0.0/0"
+}
+
+resource "exoscale_security_group_rule" "http_ipv4" {
+  security_group_id = exoscale_security_group.common_security_group.id
+  description       = "HTTP (IPv4)"
+  type              = "INGRESS"
+  protocol          = "TCP"
+  start_port        = 8080
+  end_port          = 8080
+  cidr              = "0.0.0.0/0"
+}
+
+resource "exoscale_security_group_rule" "https_ipv4" {
+  security_group_id = exoscale_security_group.common_security_group.id
+  description       = "HTTPS (IPv4)"
+  type              = "INGRESS"
+  protocol          = "TCP"
+  start_port        = 443
+  end_port          = 443
+  cidr              = "0.0.0.0/0"
+}
+
+resource "exoscale_compute_instance" "server1" {
+  zone = "ch-gva-2"
+  name = "my-instance"
+  security_group_ids = [exoscale_security_group.common_security_group.id]
+  user_data   = data.cloudinit_config.cloud_init.rendered
+  template_id = data.exoscale_template.my_template.id
+  type        = "standard.medium"
+  disk_size   = 10
 }
 
 resource "ansible_host" "server1" {
-  name   = "${aws_instance.server1.public_ip}.sslip.io"
+  name   = "${exoscale_compute_instance.server1.public_ip_address}.sslip.io"
   groups = ["servers"]
 
   variables = {
     ansible_user = "ansible"
-    ansible_host = aws_instance.server1.public_ip
+    ansible_host = exoscale_compute_instance.server1.public_ip_address
   }
 }
 

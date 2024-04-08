@@ -21,6 +21,17 @@ def main(c):
 
 
 @task()
+def podman(c):
+    """
+    Podman
+    """
+    c.run(
+        "ansible-playbook ./playbooks/podman.yml -e '@playbooks/vars/group_vars/all.yml'",
+        pty=True,
+    )
+
+
+@task()
 def destroy(c):
     """
     Destroy infrastructure

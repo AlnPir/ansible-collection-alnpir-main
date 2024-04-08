@@ -9,7 +9,7 @@
 
     - name: Print terraform result
       ansible.builtin.debug:
-        msg: "{{result.stdout}}"
+        msg: "{{ result.stdout }}"
 
   post_tasks:
     - name: Refresh inventory
