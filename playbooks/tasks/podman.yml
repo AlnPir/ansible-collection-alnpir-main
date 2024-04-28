@@ -1,3 +1,8 @@
+- name: Upgrade the OS
+  become: true
+  ansible.builtin.apt:
+    upgrade: full
+
 - name: Change ownership of /opt
   become: true
   ansible.builtin.file:
@@ -31,3 +36,7 @@
     state: started
     ports:
       - 8080:8080
+
+- name: Print the url
+  ansible.builtin.debug:
+    msg: Visit http://{{ inventory_hostname }}:8080

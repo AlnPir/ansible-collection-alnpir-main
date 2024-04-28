@@ -24,4 +24,6 @@ pre-commit install
 pre-commit run --all-files
 ```
 
+You'll need to install `tflint` and `trivy`.
+
 Then, use `invoke lint` to lint and format the collection.

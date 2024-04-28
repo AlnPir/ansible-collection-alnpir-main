@@ -6,13 +6,16 @@ def lint(c):
     """
     Lint the collection.
     """
-    c.run("pre-commit run --all-files")
+    c.run(
+        "pre-commit run --all-files",
+        pty=True,
+    )
 
 
 @task()
 def main(c):
     """
-    Create infrastructure
+    Run main scenario
     """
     c.run(
         "ansible-playbook ./playbooks/site.yml -e '@playbooks/vars/group_vars/all.yml'",
@@ -21,22 +24,33 @@ def main(c):
 
 
 @task()
-def configure_instances(c):
+def createinfra(c):
     """
-    Configure instances
+    Create infrastructure
     """
     c.run(
-        "ansible-playbook ./playbooks/configure_instances.yml -e '@playbooks/vars/group_vars/all.yml'",
+        "ansible-playbook ./playbooks/infrastructure.yml -e '@playbooks/vars/group_vars/all.yml'",
         pty=True,
     )
 
 
 @task()
-def destroy(c):
+def destroyinfra(c):
     """
     Destroy infrastructure
     """
     c.run(
         "ansible-playbook ./playbooks/infrastructure.yml -e '@playbooks/vars/group_vars/all.yml' -e 'terraform_state=absent'",
+        pty=True,
+    )
+
+
+@task()
+def configureinstances(c):
+    """
+    Configure instances
+    """
+    c.run(
+        "ansible-playbook ./playbooks/configure_instances.yml -e '@playbooks/vars/group_vars/all.yml'",
         pty=True,
     )

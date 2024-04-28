@@ -1,11 +1,5 @@
-variable "server_port" {
-  description = "The port the server will use for SSH"
-  default     = "22"
-}
-
-variable "sshkey" {
-  description = "sshkey"
-}
-
+variable "sshkey" { type = string }
 variable "exoscale_api_key" { type = string }
 variable "exoscale_api_secret" { type = string }
+variable "exoscale_compute_instance_type" { type = string }
+variable "exoscale_compute_instance_disk_size" { type = number }

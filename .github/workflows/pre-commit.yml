@@ -5,11 +5,15 @@ on:
   push:
     branches: [main]
 
+permissions: read-all
+
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install trivy and tflint
+        run: sudo snap install trivy tflint
       - uses: actions/setup-python@v3
       - uses: pre-commit/action@v3.0.1
         with:

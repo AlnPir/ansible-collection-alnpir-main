@@ -1,5 +1,5 @@
-- name: Include a play after another play
+- name: Create infrastructure
   ansible.builtin.import_playbook: infrastructure.yml
 
-- name: Include a play after another play
+- name: Configure instances
   ansible.builtin.import_playbook: configure_instances.yml

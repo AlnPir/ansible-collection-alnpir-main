@@ -5,6 +5,8 @@
       community.general.terraform:
         project_path: "../terraform"
         state: "{{ terraform_state }}"
+        force_init: true
+        binary_path: /opt/homebrew/bin/tofu
       register: result
 
     - name: Print terraform result
