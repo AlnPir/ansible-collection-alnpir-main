@@ -1,0 +1,34 @@
+name: Manual OpenTofu Trigger
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Select log level"
+        required: true
+        default: "information"
+        type: choice
+        options:
+          - information
+          - debug
+          - warning
+          - critical
+      terraform_run:
+        description: "Select OpenTofu run mode:"
+        default: plan
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+      terraform_project:
+        description: "Select OpenTofu project:"
+        default: ""
+        required: true
+        type: string
+
+jobs:
+  print-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print the purpose of run
+        run: echo  ${{ inputs.terraform_project }} purpose

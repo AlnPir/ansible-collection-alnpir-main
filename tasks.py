@@ -54,3 +54,14 @@ def configureinstances(c):
         "ansible-playbook ./playbooks/configure_instances.yml -e '@playbooks/vars/group_vars/all.yml'",
         pty=True,
     )
+
+
+@task()
+def redteam(c):
+    """
+    Run atomic red team tests
+    """
+    c.run(
+        "ansible-playbook ./playbooks/atomic_red_team.yml -e '@playbooks/vars/group_vars/all.yml'",
+        pty=True,
+    )

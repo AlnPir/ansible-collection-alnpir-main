@@ -1,3 +1,3 @@
 plugin: cloud.terraform.terraform_provider
-project_path: terraform
+project_path: roles/infrastructure/files/terraform
 binary_path: /opt/homebrew/bin/tofu

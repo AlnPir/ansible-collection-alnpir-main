@@ -1,0 +1,16 @@
+---
+- name: Run atomic red team tests
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Include the atomic_red_team role
+      ansible.builtin.import_role:
+        name: alnpir.main.atomic_red_team
+      vars:
+        atomic_red_team_art_tids_linux:
+          - T1136.001
+          - T1053.003
+          - T1003.008-1,2,3
+          - T1003.008 f5aa6543-6cb2-4fae-b9c2-b96e14721713
+          - T1070.003 47966a1d-df4f-4078-af65-db6d9aa20739,7e6721df-5f08-4370-9255-f06d8a77af4c

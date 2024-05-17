@@ -23,7 +23,7 @@ repos:
     rev: v24.2.1
     hooks:
       - id: ansible-lint
-        args: ["--exclude", "terraform*"]
+        args: ["--exclude", "roles*"]
         additional_dependencies:
           - ansible
 
@@ -32,15 +32,6 @@ repos:
     rev: v8.16.1
     hooks:
       - id: gitleaks
-
-  # IaC
-  - repo: https://github.com/tofuutils/pre-commit-opentofu
-    rev: v1.0.2
-    hooks:
-      - id: tofu_fmt
-      - id: tofu_validate
-      - id: tofu_tflint
-      - id: tofu_trivy
 
   # CI
   - repo: https://github.com/rhysd/actionlint

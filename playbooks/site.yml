@@ -3,3 +3,6 @@
 
 - name: Configure instances
   ansible.builtin.import_playbook: configure_instances.yml
+
+- name: Run atomic red team tests
+  ansible.builtin.import_playbook: atomic_red_team.yml

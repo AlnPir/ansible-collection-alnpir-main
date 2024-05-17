@@ -1,0 +1,6 @@
+[submodule "roles/infrastructure"]
+path = roles/infrastructure
+url = git@github.com:AlnPir/ansible-role-infrastructure.git
+[submodule "roles/atomic_red_team"]
+path = roles/atomic_red_team
+url = git@github.com:AlnPir/ansible-role-atomic-red-team.git
